@@ -49,7 +49,7 @@ public class PersonalService implements IPersonalService {
                 personalExistente.setNombre(model.getNombre());
                 return PersonalMapper.toPersonalResponse(modelRepository.save(personalExistente));
             }else {
-                throw new IllegalArgumentException("EL COLOR CON NOMBRE '"+newPersonalRequest.nombre()+"' YA EXISTE");
+                throw new IllegalArgumentException("EL PERSONAL CON NOMBRE '"+newPersonalRequest.nombre()+"' YA EXISTE");
             }
         }
 
@@ -62,13 +62,13 @@ public class PersonalService implements IPersonalService {
         Optional<Personal> personalOptional = modelRepository.findById(id);
         if(personalOptional.isPresent()){
             if(personalOptional.get().getEstado()==Personal.ELIMINADO){
-                throw new IllegalArgumentException("EL COLOR CON ID '"+id+"' QUE SE QUIERE ACTUALIZAR ESTÁ ELIMINADO");
+                throw new IllegalArgumentException("EL PERSONAL CON ID '"+id+"' QUE SE QUIERE ACTUALIZAR ESTÁ ELIMINADO");
             }
             Personal personal = personalOptional.get();
             personal.setNombre(model.getNombre());
             return PersonalMapper.toPersonalResponse(modelRepository.save(personal));
         }
-            throw new IllegalArgumentException("EL COLOR CON ID '"+id+"' QUE SE QUIERE ACTUALIZAR NO EXISTE");
+            throw new IllegalArgumentException("EL PERSONAL CON ID '"+id+"' QUE SE QUIERE ACTUALIZAR NO EXISTE");
     }
 
     @Override

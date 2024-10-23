@@ -31,7 +31,7 @@ public class PersonalController {
 
     @GetMapping({"/personal"})
     public List<PersonalResponse> getAll(){
-        logger.info("ESTOS SON TODOS LOS COLORES DISPONIBLES");
+        logger.info("ESTOS SON TODOS LOS PERSONALES DISPONIBLES");
 
         return modelService.listar();
     }
@@ -42,7 +42,7 @@ public class PersonalController {
         Personal model = modelService.buscarPorId(id);
         if(model==null || model.getEstado() == Personal.ELIMINADO){
 
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "NO SE ENCONTRÓ EL COLOR: "+id);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "NO SE ENCONTRÓ EL PERSONAL: "+id);
         }
         PersonalResponse personalResponse = PersonalMapper.toPersonalResponse(model);
 
@@ -67,7 +67,7 @@ public class PersonalController {
     public ResponseEntity<Void> recuperar(@PathVariable Integer id){
         Personal model = modelService.buscarPorId(id);
         if(model==null){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "EL COLOR '"+id+ "' NUNCA FUE REGISTRADO NI BORRADO ANTERIORMENTE");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "EL PERSONAL '"+id+ "' NUNCA FUE REGISTRADO NI BORRADO ANTERIORMENTE");
         }
         //si encuentro el personal que quiero recuperar
         modelService.recuperar(model); //llamo al servicio para que se encargue de recuperarlo
@@ -79,7 +79,7 @@ public class PersonalController {
     public ResponseEntity<Void> eliminar(@PathVariable Integer id){
         Personal model = modelService.buscarPorId(id);
         if(model==null){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "EL COLOR '"+id+"' NO EXISTE Y NO PUEDE SER BORRADO");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "EL PERSONAL '"+id+"' NO EXISTE Y NO PUEDE SER BORRADO");
         }
         modelService.eliminar(model);
         return ResponseEntity.ok().build();
